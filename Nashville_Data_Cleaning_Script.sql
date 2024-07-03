@@ -27,42 +27,6 @@ UPDATE portfolio.nashville
 SET SaleDateConverted = STR_TO_DATE(SaleDate, '%M %d, %Y');
 
 
- --------------------------------------------------------------------------------------------------------------------------
-
--- Populate Property Address data
-
-Select *
-From portfolio.nashville
-Where PropertyAddress is null
-order by ParcelID
-
-Select PropertyAddress
-From portfolio.nashville
-Where PropertyAddress is null
-
-
-
-
-Select a.ParcelID, a.PropertyAddress, b.ParcelID, b.PropertyAddress, ISNULL(a.PropertyAddress,b.PropertyAddress)
-From portfolio.nashville a
-JOIN portfolio.nashville b
-	on a.ParcelID = b.ParcelID
-	AND a.[Unique_ID] <> b.[Unique_ID]
-Where a.PropertyAddress is null
-
-
-
-Update a
-SET PropertyAddress = ISNULL(a.PropertyAddress,b.PropertyAddress)
-From portfolio.nashville a
-JOIN portfolio.nashville b
-	on a.ParcelID = b.ParcelID
-	AND a.[UniqueID ] <> b.[UniqueID ]
-Where a.PropertyAddress is null
-
-
-
-
 --------------------------------------------------------------------------------------------------------------------------
 
 -- Breaking out Address into Individual Columns (Address, City, State)
